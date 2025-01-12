@@ -21,7 +21,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
           <AvatarFallback>{isUser ? 'U' : 'B'}</AvatarFallback>
         </Avatar>
         <div
-          className={`max-w-md p-4 rounded-lg shadow ${
+          className={`max-w-md px-4 py-1 rounded-lg shadow ${
             isUser
               ? 'bg-primary text-primary-foreground'
               : 'bg-muted'
