@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { MessageBubble } from './message-bubble';
-import { InputArea } from './input-area';
 import { Button } from '@/components/ui/button';
-import { Loader2, Copy, Save, Trash2 } from 'lucide-react';
+import axios from 'axios';
+import { Copy, Loader2, Save, Trash2 } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { InputArea } from './input-area';
+import { MessageBubble } from './message-bubble';
 
 type Message = {
   id: number;
@@ -21,17 +22,26 @@ export function ChatWindow() {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const handleSendMessage = (text: string) => {
-    const newMessage: Message = { id: Date.now(), text, sender: 'user' };
-    setMessages([...messages, newMessage]);
+  const handleSendMessage = async (text: string) => {
+    const newMessage: Message = { id: Math.floor(Math.random() * 10000), text, sender: 'user' };
+    setMessages((prev) => [...prev, newMessage]);
     setIsTyping(true);
 
-    // Simulate bot response
-    setTimeout(() => {
-      const botMessage: Message = { id: Date.now(), text: `You said: ${text}`, sender: 'bot' };
-      setMessages((prevMessages) => [...prevMessages, botMessage]);
+    try {
+      const response = await axios.post('/api/chat', { input: text });
+      console.log(response);
+      const botMessage: Message = {
+        id: Math.floor(Math.random() * 10000),
+        text: response.data.response,
+        sender: 'bot',
+      };
+      setMessages((prev) => [...prev, botMessage]);
+      console.log('Messages[]', messages);
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
       setIsTyping(false);
-    }, 1000);
+    }
   };
 
   const handleClearChat = () => {
