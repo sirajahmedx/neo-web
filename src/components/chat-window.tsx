@@ -29,14 +29,12 @@ export function ChatWindow() {
 
     try {
       const response = await axios.post('/api/chat', { input: text });
-      console.log(response);
       const botMessage: Message = {
         id: Math.floor(Math.random() * 10000),
         text: response.data.response,
         sender: 'bot',
       };
       setMessages((prev) => [...prev, botMessage]);
-      console.log('Messages[]', messages);
     } catch (error) {
       console.error('Error:', error);
     } finally {

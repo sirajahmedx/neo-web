@@ -11,7 +11,6 @@ type MessageBubbleProps = {
 };
 
 export function MessageBubble({ message }: MessageBubbleProps) {
-  console.log('message', message);
   const isUser = message.sender === 'user';
 
   return (
@@ -20,7 +19,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
         className={`flex items-end space-x-2 ${isUser ? 'flex-row-reverse space-x-reverse' : ''}`}
       >
         <Avatar className="w-8 h-8">
-          <AvatarImage src={isUser ? "" : "https://github.com/shadcn.png"} />
+          <AvatarImage src={isUser ? '' : ''} />
           <AvatarFallback>{isUser ? 'U' : 'B'}</AvatarFallback>
         </Avatar>
         <div

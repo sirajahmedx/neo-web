@@ -32,7 +32,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
     const chatSession = model.startChat({
       generationConfig,
-      history: [], // Starting with an empty history or use past conversations if needed
+      history: [],
     });
 
     const result = await chatSession.sendMessage(input);

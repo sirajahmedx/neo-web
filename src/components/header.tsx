@@ -16,7 +16,7 @@ export function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-10 flex items-center justify-between p-4 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 max-w-6xl mx-auto">
-      <h1 className="text-2xl font-bold">ChatBot</h1>
+      <h1 className="text-2xl font-bold">Echo</h1>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="icon">
