@@ -28,7 +28,7 @@ export function ChatWindow() {
     setIsTyping(true);
 
     try {
-      const response = await axios.post('/api/chat', { input: text });
+      const response = await axios.post('http://localhost:3000/api/generate', { input: text });
       const botMessage: Message = {
         id: Math.floor(Math.random() * 10000),
         text: response.data.response,
