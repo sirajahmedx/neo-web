@@ -45,20 +45,27 @@ export function Header() {
       </h1>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" size="icon" aria-label="Toggle theme">
-            <span
-              className="inline-block transition-transform duration-300 will-change-transform"
-              key={currentTheme}
-            >
-              {mounted && currentTheme === "dark" ? (
-                <Moon className="h-[1.2rem] w-[1.2rem] transition-all" />
-              ) : (
-                <Sun className="h-[1.2rem] w-[1.2rem] transition-all" />
-              )}
-            </span>
+          <Button
+            variant="outline"
+            size="icon"
+            aria-label="Toggle theme"
+            className="focus-visible:ring-2 focus-visible:ring-primary"
+          >
+            <span className="sr-only">Toggle theme</span>
+            {mounted && currentTheme === "dark" ? (
+              <Moon
+                key="dark"
+                className="h-[1.2rem] w-[1.2rem] transition-all inline-block"
+              />
+            ) : (
+              <Sun
+                key="light"
+                className="h-[1.2rem] w-[1.2rem] transition-all inline-block"
+              />
+            )}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align="end" aria-label="Theme selection menu">
           {themeOptions.map((opt) => {
             const selected =
               opt.value === (opt.value === "system" ? theme : currentTheme);
