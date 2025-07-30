@@ -1,16 +1,21 @@
-'use client';
+"use client";
 
-import { Moon, Sun } from 'lucide-react';
-import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
+import { Moon, Sun, Check } from "lucide-react";
+const themeOptions = [
+  { value: "light", label: "Light" },
+  { value: "dark", label: "Dark" },
+  { value: "system", label: "System" },
+];
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 
 export function Header() {
   const { setTheme, theme, systemTheme } = useTheme();
@@ -21,15 +26,22 @@ export function Header() {
   }, []);
 
   // Determine current theme for icon
-  const currentTheme = theme === 'system' ? systemTheme : theme;
+  const currentTheme = theme === "system" ? systemTheme : theme;
 
   return (
     <header className="fixed top-0 left-0 right-0 z-10 flex items-center justify-between p-4 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 max-w-6xl mx-auto">
-      <h1 className="text-2xl font-bold tracking-tight">Echo</h1>
+      <h1
+        className="text-2xl font-bold tracking-tight transition-colors hover:text-primary cursor-pointer"
+        tabIndex={0}
+        aria-label="Echo Home"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      >
+        Echo
+      </h1>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="icon" aria-label="Toggle theme">
-            {mounted && currentTheme === 'dark' ? (
+            {mounted && currentTheme === "dark" ? (
               <Moon className="h-[1.2rem] w-[1.2rem] transition-all" />
             ) : (
               <Sun className="h-[1.2rem] w-[1.2rem] transition-all" />
@@ -37,24 +49,24 @@ export function Header() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem
-            onClick={() => setTheme('light')}
-            aria-selected={currentTheme === 'light'}
-          >
-            Light
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => setTheme('dark')}
-            aria-selected={currentTheme === 'dark'}
-          >
-            Dark
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => setTheme('system')}
-            aria-selected={theme === 'system'}
-          >
-            System
-          </DropdownMenuItem>
+          {themeOptions.map((opt) => {
+            const selected =
+              opt.value === (opt.value === "system" ? theme : currentTheme);
+            return (
+              <DropdownMenuItem
+                key={opt.value}
+                onClick={() => setTheme(opt.value)}
+                aria-selected={selected}
+                aria-checked={selected}
+                role="menuitemradio"
+                tabIndex={0}
+                className="flex items-center gap-2"
+              >
+                {selected && <Check className="h-4 w-4 text-primary" />}
+                {opt.label}
+              </DropdownMenuItem>
+            );
+          })}
         </DropdownMenuContent>
       </DropdownMenu>
     </header>
