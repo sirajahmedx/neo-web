@@ -36,7 +36,7 @@ export function InputArea({
       (e.key === "Enter" && !e.shiftKey) ||
       (e.key === "Enter" && (e.ctrlKey || e.metaKey))
     ) {
-      handleSubmit(e as any);
+      handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>);
     }
   };
 

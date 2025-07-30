@@ -49,7 +49,7 @@ export function ChatWindow() {
         sender: "bot",
       };
       setMessages((prev) => [...prev, botMessage]);
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError("Failed to get response from bot.");
       console.error("Error:", err);
     } finally {
