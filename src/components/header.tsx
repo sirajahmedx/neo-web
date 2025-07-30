@@ -1,14 +1,8 @@
 "use client";
 
 import { Moon, Sun, Check } from "lucide-react";
-const themeOptions = [
-  { value: "light", label: "Light" },
-  { value: "dark", label: "Dark" },
-  { value: "system", label: "System" },
-];
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -16,6 +10,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
+const themeOptions = [
+  { value: "light", label: "Light" },
+  { value: "dark", label: "Dark" },
+  { value: "system", label: "System" },
+];
 
 export function Header() {
   const { setTheme, theme, systemTheme } = useTheme();
@@ -25,13 +25,12 @@ export function Header() {
     setMounted(true);
   }, []);
 
-  // Determine current theme for icon
   const currentTheme = theme === "system" ? systemTheme : theme;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-10 flex items-center justify-between p-4 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 max-w-6xl mx-auto">
+    <header className="fixed top-0 left-0 right-0 z-10 flex items-center justify-between p-4 bg-gradient-to-r from-background to-muted backdrop-blur supports-[backdrop-filter]:bg-background/60 max-w-6xl mx-auto">
       <h1
-        className="text-2xl font-bold tracking-tight transition-colors hover:text-primary cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        className="text-2xl font-bold tracking-tight hover:text-primary transition-colors hover:scale-105 duration-300 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-primary"
         tabIndex={0}
         aria-label="Echo Home"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -43,42 +42,41 @@ export function Header() {
       >
         Echo
       </h1>
+
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
             variant="outline"
             size="icon"
             aria-label="Toggle theme"
-            className="focus-visible:ring-2 focus-visible:ring-primary"
+            className="focus-visible:ring-2 focus-visible:ring-primary relative"
           >
             <span className="sr-only">Toggle theme</span>
             {mounted && currentTheme === "dark" ? (
-              <Moon
-                key="dark"
-                className="h-[1.2rem] w-[1.2rem] transition-all inline-block"
-              />
+              <Moon className="h-5 w-5 transition-all" />
             ) : (
-              <Sun
-                key="light"
-                className="h-[1.2rem] w-[1.2rem] transition-all inline-block"
-              />
+              <Sun className="h-5 w-5 transition-all" />
+            )}
+            {mounted && (
+              <span className="absolute -bottom-5 text-xs text-muted-foreground capitalize">
+                {currentTheme}
+              </span>
             )}
           </Button>
         </DropdownMenuTrigger>
+
         <DropdownMenuContent align="end" aria-label="Theme selection menu">
           {themeOptions.map((opt) => {
-            const selected =
-              opt.value === (opt.value === "system" ? theme : currentTheme);
+            const selected = theme === opt.value;
             return (
               <DropdownMenuItem
                 key={opt.value}
                 onClick={() => setTheme(opt.value)}
-                aria-selected={selected}
-                aria-checked={selected}
-                aria-current={selected ? "true" : undefined}
                 role="menuitemradio"
-                tabIndex={0}
-                className="flex items-center gap-2"
+                aria-checked={selected}
+                className={`flex items-center gap-2 capitalize ${
+                  selected ? "font-semibold text-primary" : ""
+                }`}
               >
                 {selected && <Check className="h-4 w-4 text-primary" />}
                 {opt.label}
