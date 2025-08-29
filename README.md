@@ -1,3 +1,5 @@
+> **Note:** The backend for this project is maintained separately in the [neo-backend](https://github.com/sirajyamin/neo-backend) repository.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
