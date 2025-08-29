@@ -1,5 +1,7 @@
 # Neo Web Chat Application
 
+> ⭐ **If you liked this project (or anything else I've built), please leave a star!**
+
 > **Note:** The backend for this project is maintained separately in the [neo-backend](https://github.com/sirajyamin/neo-backend) repository.
 
 This is the **frontend** for the Neo Chat App — a simple Gemini-powered chat application built with **Next.js** and **Tailwind CSS**. It provides a clean, responsive interface for chatting with an AI model (via the Gemini API).
