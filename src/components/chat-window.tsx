@@ -40,9 +40,12 @@ export function ChatWindow() {
     setIsTyping(true);
 
     try {
-      const response = await axios.post("http://localhost:3000/api/generate", {
-        input: text,
-      });
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/generate`,
+        {
+          input: text,
+        }
+      );
       const botMessage: Message = {
         id: generateId(),
         text: response.data.response,
