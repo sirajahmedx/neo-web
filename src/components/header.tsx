@@ -87,11 +87,11 @@ export function Header() {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-
+{/* 
       <div className="w-full text-center text-xs text-red-600 mt-2">
         Note: The chat will not work right now because the Gemini API key has
         expired. You can still send messages, but you will get a 404 response.
-      </div>
+      </div> */}
     </header>
   );
 }
